@@ -46,9 +46,6 @@ function getComputerMove(move) {
 };
 
 function getWinner(playerMove, computerMove) {
-
-    // Somewhere to store the winner.
-    var winner;
    
     /* If player and computer make the same choice.
      * Result: `tie`. 
@@ -94,12 +91,58 @@ function getWinner(playerMove, computerMove) {
     }
 }
 
-function playToFive() {
+/* The playTo function will allow you to play
+ * `Rock, Paper, Scissors` until either the 
+ * player or Computer has won x times.
+ */
+
+function playTo(x) {
+
+    // If no parameter is given, x will defualt to 5.
+    x = x || 5;
+    
     console.log("Let's play Rock, Paper, Scissors");
+
     var playerWins = 0;
     var computerWins = 0;
-    // Write code that plays 'Rock, Paper, Scissors' until either the player or the computer has won five times.
-    /* YOUR CODE HERE */
-    return [playerWins, computerWins];
+
+    // playerWins and computerWins is less than x.
+    while (playerWins < x && computerWins < x) {
+
+        // p equals the result of the getPlayerMove function.
+        var p = getPlayerMove();
+
+        // c equals the result of the getComputerMove function.
+        var c = getComputerMove();
+
+        // winner is the result of the getWinner function.
+        // p and c are the parameters of getWinner. 
+        var winner = getWinner(p, c);
+        
+        // If the computer outputs the same result = draw.
+        if (winner === 'tie') {
+            console.log('It was a draw.');
+        } else if (winner === 'player') {
+            // 1 plus counter added to playerWins (score).
+            playerWins++;
+        } else {
+            // 1 plus counter added to computerWins (score).
+            computerWins++;
+        }
+
+        // The scoreboard.
+        console.log('You chose ' + p + ' & the Computer chose ' + c + '.');
+        console.log('Current score: ' + playerWins + ' : ' + computerWins + '\n');
+
+    }
+
+    // Used the ternary operator to log the ultimate winner. Best of (x).
+    var playerWonString = 'You beat the computer. Clever human. Here.. have a cookie. ಠ_ಠ';
+    var computerWonString = 'The computer beat you.. Machines will take over. No human is safe!';
+    playerWins === x ? console.log(playerWonString) : console.log(computerWonString);
+
 }
+
+// Function invocation. Code will now execute.
+playTo();
 
